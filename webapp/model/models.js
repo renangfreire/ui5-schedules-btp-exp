@@ -18,6 +18,20 @@ sap.ui.define([
                 var oModel = new JSONModel(Device);
                 oModel.setDefaultBindingMode("OneWay");
                 return oModel;
-        }
+            },
+            getSchedules: function(){
+                const oModel = new JSONModel();
+
+                return new Promise(async (resolve, reject) => {
+                    await oModel.loadData("/model/appointments.json")
+
+                    if(oModel.getData() ){
+                        resolve(oModel.getData())
+                    }
+
+                    reject("Cannot GET schedules")
+                })
+            }
+
     };
 });

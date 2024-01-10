@@ -1,7 +1,70 @@
 <mvc:View controllerName="com.lab2dev.schedulesbtpexp.controller.Schedules"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
-        <content />
+    xmlns:mvc="sap.ui.core.mvc" 
+    xmlns:core="sap.ui.core"
+	xmlns:unified="sap.ui.unified"
+    xmlns:main="sap.ui.webc.main"
+    xmlns:l="sap.ui.layout"
+    xmlns="sap.m"
+    displayBlock="true"
+    >
+    <Page id="page" showHeader="false">
+        <!-- Problema na definição do Titulo, decidir com UX ou Marcelo qual fica melhor -->
+
+        <l:VerticalLayout class="sapUiMediumMargin">
+         <l:VerticalLayout class="sapUiSmallMarginBottom">
+            <main:Title text="Agenda" level="H2" />
+        </l:VerticalLayout>
+
+        <VBox>
+            <PlanningCalendar
+                id="PC1"
+                startDate="{path: '/startDate', formatter: '.formatter.formatDate' }"
+                rows="{path: '/people'}"
+                appointmentsVisualization="Filled"
+                appointmentSelect="handleAppointmentSelect"
+                rowHeaderPress="handleRowHeaderPress"
+                showEmptyIntervalHeaders="false"
+                showWeekNumbers="true" >
+                <toolbarContent>
+                    <Title text="Programação do evento" titleStyle="H4"/>
+                    <HBox >
+                    <SearchField />
+                    <Button id="addButton" icon="sap-icon://add" press="handleAppointmentCreate" tooltip="Add"/>
+                    </HBox>
+                </toolbarContent>
+                <rows>
+                    <PlanningCalendarRow
+                        icon="{pic}"
+                        title="{name}"
+                        text="{role}"
+                        appointments="{path : 'appointments', templateShareable: false}"
+                        intervalHeaders="{path: 'headers', templateShareable: false}">
+
+                        <appointments>
+                            <unified:CalendarAppointment
+                                startDate="{path: 'start', formatter: '.formatter.formatDate' }"
+                                endDate="{path: 'end', formatter: '.formatter.formatDate' }"
+                                title="{title}"
+                                text="{info}"
+                                type="{type}"
+                                tentative="{tentative}">
+                            </unified:CalendarAppointment>
+                        </appointments>
+                        <intervalHeaders>
+                            <unified:CalendarAppointment
+                                startDate="{path: 'start', formatter: '.formatter.formatDate' }"
+                                endDate="{path: 'end', formatter: '.formatter.formatDate' }"
+                                icon="{pic}"
+                                title="{title}"
+                                type="{type}">
+                            </unified:CalendarAppointment>
+                        </intervalHeaders>
+                    </PlanningCalendarRow>
+                </rows>
+            </PlanningCalendar>
+        </VBox>
+        </l:VerticalLayout>
+
+       
     </Page>
 </mvc:View>
