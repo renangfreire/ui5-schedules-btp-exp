@@ -1,89 +1,120 @@
 {
-    "startDate": ["2017", "0", "15", "00", "0"],
-    "people": [{
-        "pic": "../assets/images/Man.png",
-        "name": "John Miller",
-        "role": "team member",
-        "appointments": [
-            {
-                "start": ["2017", "0", "8", "08", "30"],
-                "end": ["2017", "0", "8", "09", "30"],
-                "title": "Meet Max Mustermann",
-                "type": "Type02",
-                "tentative": false
-            },
-            {
-                "start": ["2017", "0", "11", "10", "0"],
-                "end": ["2017", "0", "11", "12", "0"],
-                "title": "Team meeting",
-                "info": "room 1",
-                "type": "Type01",
-                "pic": "sap-icon://sap-ui5",
-                "tentative": false
-            }
-        ],
-        "headers": [
-            {
-                "start": ["2017", "0", "15", "8", "0"],
-                "end": ["2017", "0", "15", "10", "0"],
-                "title": "Reminder",
-                "type": "Type06"
-            },
-            {
-                "start": ["2017", "0", "15", "17", "0"],
-                "end": ["2017", "0", "15", "19", "0"],
-                "title": "Reminder",
-                "type": "Type06"
-            },
-            {
-                "start": ["2017", "8", "1", "0", "0"],
-                "end": ["2017", "10", "30", "23", "59"],
-                "title": "New quarter",
-                "type": "Type10",
-                "tentative": false
-            },
-            {
-                "start": ["2018", "1", "1", "0", "0"],
-                "end": ["2018", "3", "30", "23", "59"],
-                "title": "New quarter",
-                "type": "Type10",
-                "tentative": false
-            }
-        ]
-    },
+    "StartDate": "2017-01-15T02:00:00.000Z",
+    "Orators": [
+        {
+            "pic": "../assets/images/Man.png",
+            "name": "John Miller",
+            "role": "team member",
+            "appointments": [
+                {
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "rosa",
+                    "StartDate": "2017-01-08T10:30:00.000Z",
+                    "EndDate": "2017-01-08T11:30:00.000Z",
+                    "type": "Type01"
+                },
+                {
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "vermelho",
+                    "StartDate": "2017-01-15T08:00:00.000Z",
+                    "EndDate": "2017-01-15T10:30:00.000Z",
+                    "type": "Type02"
+                },
+                {
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "verde",
+                    "StartDate": "2017-01-15T08:00:00.000Z",
+                    "EndDate": "2017-01-15T10:30:00.000Z",
+                    "type": "Type02"
+                },
+                {
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "roxo",
+                    "StartDate": "2017-01-15T17:00:00.000Z",
+                    "EndDate": "2017-01-15:19:00.000Z",
+                    "type": "Type03"
+                },
+                {
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-18T10:30:00.000Z",
+                    "EndDate": "2017-01-18T12:30:00.000Z",
+                    "type": "Type04"
+                },
+                {
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-18T14:00:00.000Z",
+                    "EndDate": "2017-01-18T18:30:00.000Z",
+                    "type": "Type20",
+                    "tentative": false
+                }
+            ]
+        },
         {
             "pic": "../assets/images/Woman.png",
             "name": "Donna Moore",
             "role": "team member",
             "appointments": [
                 {
-                    "start": ["2017", "0", "10", "18", "00"],
-                    "end": ["2017", "0", "10", "19", "10"],
-                    "title": "Discussion of the plan",
-                    "info": "Online meeting",
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-10T20:00:00.000Z",
+                    "EndDate": "2017-01-10T21:10:00.000Z",
                     "type": "Type04",
                     "tentative": false
                 },
                 {
-                    "start": ["2017", "0", "9", "10", "0"],
-                    "end": ["2017", "0", "13", "12", "0"],
-                    "title": "Workshop out of the country",
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-09T12:00:00.000Z",
+                    "EndDate": "2017-01-13T14:00:00.000Z",
                     "type": "Type07",
                     "tentative": false
-                }
-            ],
-            "headers": [
-                {
-                    "start": ["2017", "0", "15", "9", "0"],
-                    "end": ["2017", "0", "15", "10", "0"],
-                    "title": "Payment reminder",
-                    "type": "Type06"
                 },
                 {
-                    "start": ["2017", "0", "15", "16", "30"],
-                    "end": ["2017", "0", "15", "18", "00"],
-                    "title": "Private appointment",
-                    "type": "Type06"
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-15T11:00:00.000Z",
+                    "EndDate": "2017-01-15T13:00:00.000Z",
+                    "type": "Type06",
+                    "tentative": false
                 }
             ]
         },
@@ -93,29 +124,38 @@
             "role": "team member",
             "appointments": [
                 {
-                    "start": ["2017", "0", "15", "08", "30"],
-                    "end": ["2017", "0", "15", "09", "30"],
-                    "title": "Meet John Miller",
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-15T10:30:00.000Z",
+                    "EndDate": "2017-01-15T11:30:00.000Z",
                     "type": "Type02",
                     "tentative": false
                 },
                 {
-                    "start": ["2017", "0", "15", "10", "0"],
-                    "end": ["2017", "0", "15", "12", "0"],
-                    "title": "Team meeting",
-                    "info": "room 1",
+                    "ID": "200001353",
+                    "EventName": "Onboarding - SAP BTP Experience 2024",
+                    "EventType": "Onboarding",
+                    "InCharge": "SAP Brasil",
+                    "Room": "Ronaldo",
+                    "Sector": "Setor Rosa",
+                    "StartDate": "2017-01-15T12:00:00.000Z",
+                    "EndDate": "2017-01-15T14:00:00.000Z",
                     "type": "Type01",
-                    "pic": "sap-icon://sap-ui5",
                     "tentative": false
                 }
+            ]
+        },
+        {
+            "pic": "../assets/images/Man.png",
+            "name": "Renan Freire",
+            "role": "team member",
+            "appointments": [
             ],
             "headers": [
-                {
-                    "start": ["2017", "0", "16", "0", "0"],
-                    "end": ["2017", "0", "16", "23", "59"],
-                    "title": "Private",
-                    "type": "Type05"
-                }
             ]
         }
     ]

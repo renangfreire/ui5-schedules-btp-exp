@@ -12,26 +12,49 @@ sap.ui.define([
      */
     function (JSONModel, Device) {
         "use strict";
-
+       
         return {
+            localStorage: window.localStorage,
             createDeviceModel: function () {
                 var oModel = new JSONModel(Device);
                 oModel.setDefaultBindingMode("OneWay");
                 return oModel;
             },
-            getSchedules: function(){
+            initLocalStorage: async function(){
+                debugger
                 const oModel = new JSONModel();
-
-                return new Promise(async (resolve, reject) => {
                     await oModel.loadData("/model/appointments.json")
 
                     if(oModel.getData() ){
-                        resolve(oModel.getData())
+                        this.localStorage.setItem("appointments", JSON.stringify(oModel.getData()))
+
+                        return oModel.getData()
                     }
 
-                    reject("Cannot GET schedules")
-                })
-            }
+                    throw new Error("Error")
+                
+            },
+            getAppointments: async function(){
+                const oData = await this.localStorage.getItem("appointments")
+                
+                if(!oData) return false
 
+                return JSON.parse(oData)
+            },
+            getSchedules: function(){
+                const oData = this.getAppointments()
+
+                return oData
+                    .then(                        
+                        data => {
+                            if(!data){
+                                return this.initLocalStorage()
+                            }
+
+                            return data
+                        }
+                    )
+                    .catch(err => console.log(err))
+            },
     };
 });

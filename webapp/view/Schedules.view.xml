@@ -17,54 +17,52 @@
 
         <VBox>
             <PlanningCalendar
-                id="PC1"
-                startDate="{path: '/startDate', formatter: '.formatter.formatDate' }"
-                rows="{path: '/people'}"
+                id="planningCalendar"
+                startDate="{path: '/StartDate', formatter: '.formatter.formatDate' }"
+                rows="{path: '/Orators'}"
                 appointmentsVisualization="Filled"
                 appointmentSelect="handleAppointmentSelect"
+                startDateChange="handleChangeInterval"
                 rowHeaderPress="handleRowHeaderPress"
                 showEmptyIntervalHeaders="false"
                 showWeekNumbers="true" >
                 <toolbarContent>
                     <Title text="Programação do evento" titleStyle="H4"/>
                     <HBox >
-                    <SearchField />
-                    <Button id="addButton" icon="sap-icon://add" press="handleAppointmentCreate" tooltip="Add"/>
+                    <SearchField  />
+                        <Button id="NewSessionDialog" icon="sap-icon://add" press=".openNewSessionDialog" tooltip="Add"/>
                     </HBox>
                 </toolbarContent>
                 <rows>
                     <PlanningCalendarRow
+                        id="row"
                         icon="{pic}"
                         title="{name}"
                         text="{role}"
-                        appointments="{path : 'appointments', templateShareable: false}"
-                        intervalHeaders="{path: 'headers', templateShareable: false}">
-
+                        appointments="{path : 'appointments', templateShareable: false }">
                         <appointments>
                             <unified:CalendarAppointment
-                                startDate="{path: 'start', formatter: '.formatter.formatDate' }"
-                                endDate="{path: 'end', formatter: '.formatter.formatDate' }"
-                                title="{title}"
-                                text="{info}"
-                                type="{type}"
+                                startDate="{path: 'StartDate', formatter: '.formatter.formatDate' }"
+                                endDate="{path: 'EndDate', formatter: '.formatter.formatDate' }"
+                                title="{EventName}"
+                                text="{EventType}"
+                                type="{path: 'Sector', formatter: '.formatter.defineTypeAppointment'}"
                                 tentative="{tentative}">
                             </unified:CalendarAppointment>
                         </appointments>
-                        <intervalHeaders>
-                            <unified:CalendarAppointment
-                                startDate="{path: 'start', formatter: '.formatter.formatDate' }"
-                                endDate="{path: 'end', formatter: '.formatter.formatDate' }"
-                                icon="{pic}"
-                                title="{title}"
-                                type="{type}">
-                            </unified:CalendarAppointment>
-                        </intervalHeaders>
                     </PlanningCalendarRow>
                 </rows>
             </PlanningCalendar>
         </VBox>
         </l:VerticalLayout>
 
+        <footer>
+        <OverflowToolbar >
+        <ToolbarSpacer />
+        <Button type="Emphasized" text="Ver sessões" icon="sap-icon://forward" iconFirst="false"/>
+        <Button type="Emphasized" text="Ver repositórios" icon="sap-icon://forward" iconFirst="false"/>
+        </OverflowToolbar>
+        </footer>
        
     </Page>
 </mvc:View>
