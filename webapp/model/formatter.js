@@ -7,7 +7,7 @@ sap.ui.define([
             const dateFormated = new Date(sDate)
             return dateFormated
         },
-        defineTypeAppointment: function(sSection){
+        defineColorTypeAppointment: function(sSection){
             switch(sSection){
                 case "rosa": {
                     return "Type01"
@@ -23,6 +23,25 @@ sap.ui.define([
                 }
                 default: {
                     return "Type04"
+                }
+            }
+        },
+        defineTypeAppointment: function(sType){
+            switch(sType){
+                case "lecture": {
+                    return "Lecture"
+                }
+                case "keynote":{
+                    return "Keynote"
+                }
+                case "handson": {
+                    return "Hands-on"
+                }
+                case "onboarding": {
+                    return "Onboarding"
+                }
+                default: {
+                    return ""
                 }
             }
         }

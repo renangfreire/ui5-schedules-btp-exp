@@ -36,17 +36,17 @@
                 <rows>
                     <PlanningCalendarRow
                         id="row"
-                        icon="{pic}"
-                        title="{name}"
-                        text="{role}"
-                        appointments="{path : 'appointments', templateShareable: false }">
+                        icon="{Pic}"
+                        title="{Name}"
+                        text="{Role}"
+                        appointments="{path : 'Appointments', templateShareable: false }">
                         <appointments>
                             <unified:CalendarAppointment
                                 startDate="{path: 'StartDate', formatter: '.formatter.formatDate' }"
                                 endDate="{path: 'EndDate', formatter: '.formatter.formatDate' }"
                                 title="{EventName}"
-                                text="{EventType}"
-                                type="{path: 'Sector', formatter: '.formatter.defineTypeAppointment'}"
+                                text="{path: 'EventType', formatter: '.formatter.defineTypeAppointment'}"
+                                type="{path: 'Sector', formatter: '.formatter.defineColorTypeAppointment'}"
                                 tentative="{tentative}">
                             </unified:CalendarAppointment>
                         </appointments>

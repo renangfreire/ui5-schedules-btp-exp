@@ -21,7 +21,6 @@ sap.ui.define([
                 return oModel;
             },
             initLocalStorage: async function(){
-                debugger
                 const oModel = new JSONModel();
                     await oModel.loadData("/model/appointments.json")
 
@@ -41,6 +40,9 @@ sap.ui.define([
 
                 return JSON.parse(oData)
             },
+            postAppointments: function(oData){
+                this.localStorage.setItem("appointments", JSON.stringify(oData))
+            },
             getSchedules: function(){
                 const oData = this.getAppointments()
 
@@ -56,5 +58,25 @@ sap.ui.define([
                     )
                     .catch(err => console.log(err))
             },
+            postSchedule: function(oNewSessionForm){
+                // Logica com meu queridissmo localStorage por enquanto!
+                // Como estou utilizando o local vou puxar tudo!
+
+                const oAppointments = this.getAppointments();
+
+                return oAppointments.then(oData => {
+                    oData.Orators.forEach(orator => {
+                        if(orator.Id === oNewSessionForm.OratorId){
+                            const {OratorId, ...newSessionData} = oNewSessionForm
+
+                            orator.Appointments.push(newSessionData)
+                        }
+                    })
+
+                   this.postAppointments(oData)
+
+                   return oData
+                })
+            }
     };
 });
