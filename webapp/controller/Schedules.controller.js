@@ -13,7 +13,9 @@ sap.ui.define([
 
         return Controller.extend("com.lab2dev.schedulesbtpexp.controller.Schedules", {
             DialogTypes: [
-                "NewSession"
+                "CreateNewSession",
+                "SessionDetails",
+                "EditSession",
             ],
             onInit: function () {
                 const oData = models.getSchedules();
@@ -118,15 +120,24 @@ sap.ui.define([
 
                 this.onOpenDialog(oEvent)
             },
+            handleEditDialog: function(oEvent){
+                this.onOpenDialog(oEvent)
+            },
             filterSessions: function(){
                 // Filtrando as Sessões para caso o usuário não possua nenhuma sessão no momento
                 // Melhorar é filtrar com base no tempo selecionado!
                 const filter = new Filter("Appointments", (appointment) => appointment.length ? true : false)
             
-                const aCalendar = this.byId("planningCalendar")
+                const aCalendar = this.byId("sessionsCalendar")
                 const aRows = aCalendar.getBinding("rows")
 
                 aRows.filter([filter], "Application")
+            },
+            handleAppointmentSelect: function(oEvent){
+                const oAppointment = oEvent.getParameter("appointment")
+                const sPopover = this.DialogTypes.find(el => el === "SessionDetails")
+
+                this.onOpenPopover(sPopover, oAppointment)
             },
             handleChangeInterval: function(oEvent){
                 // Função que vai me deixar criar o filtro bom!
@@ -134,6 +145,7 @@ sap.ui.define([
                 console.log("changed Interval")
             },
             onSelectOrator: function(oEvent){
+                debugger
                 try {
                     const oModel = this.getModel();
 

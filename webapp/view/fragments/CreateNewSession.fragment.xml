@@ -1,0 +1,104 @@
+<core:FragmentDefinition 
+    xmlns:form="sap.ui.layout.form"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+>
+    <Dialog
+        id="NewSession"
+        title="Nova Sessão" 
+    >
+    <l:HorizontalLayout class="sapUiResponsiveContentPadding">
+        <l:VerticalLayout class="sapUiTinyMarginEnd" width="220px">
+        <Label text="Título da sessão" required="true" />
+            <Input class="sapUiSmallMarginBottom" type="Text" value="{newSessionForm>/EventName}" placeholder="Digite o título" />
+            <Label text="Responsável" required="true" />
+                <ComboBox
+                    width="100%"
+                    items="{
+                        path: '/Orators',
+                        sorter: { path: 'Name' }
+                    }"
+                    class="sapUiSmallMarginBottom"
+                    placeholder="Selecione o Responsável"
+                    selectionChange="onSelectOrator"
+                    selectedKey="{newSessionForm>/OratorId}"
+                    >
+                    <core:Item key="{Id}" text="{Name}" />
+                </ComboBox>
+            <Label text="Data e Hora" required="true" />
+            <DateTimePicker
+					placeholder="Selecione"
+					change="handleChange"
+                    displayFormat="M/d/yy h:mm a"
+                    value="{newSessionForm>/StartDate}"
+					class="sapUiSmallMarginBottom"/>
+            <Label text="Setor" required="true" />
+                 <ComboBox
+                    width="100%"
+                    items="{
+                        path: 'viewDetails>/setorsMock',
+                        sorter: { path: 'viewDetails>text' }
+                    }"
+                    class="sapUiSmallMarginBottom"
+                    placeholder="Selecione o setor"
+                    selectedKey="{newSessionForm>/Sector}"
+                    >
+                    <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
+                </ComboBox>
+        </l:VerticalLayout>
+
+        <l:VerticalLayout width="220px">
+            <Label text="Tipo de evento" required="true" />
+               <ComboBox
+                    width="100%"
+                    items="{
+                        path: 'viewDetails>/typeEventMock',
+                        sorter: { path: 'viewDetails>text' }
+                    }"
+                    class="sapUiSmallMarginBottom"
+                    placeholder="Selecione o tipo do evento"
+                    selectedKey="{newSessionForm>/EventType}"
+                    >
+                    <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
+                </ComboBox>
+            <Label text="Empresa" required="true" labelFor="companyName" />
+                <Input id="inputCompanyName" class="sapUiSmallMarginBottom" type="Text" editable="false" value="{newSessionForm>/CompanyName}"/>
+            <Label text="Duração" required="true" />
+                <ComboBox
+                    width="100%"
+                    placeholder="Selecione a duração"
+                    class="sapUiSmallMarginBottom"
+                    selectedKey="{newSessionForm>/Duration}"
+                    items="{
+                        path: 'viewDetails>/timeMock',
+                        sorter: { path: 'viewDetails>text' }
+                    }">
+                    <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
+                </ComboBox>
+            <Label text="Sala" required="true" />
+                <ComboBox
+                    width="100%"
+                    items="{
+                        path: 'viewDetails>/roomsMock',
+                        sorter: { path: 'viewDetails>text' }
+                    }"
+                    class="sapUiSmallMarginBottom"
+                    selectedKey="{newSessionForm>/Room}"
+                    placeholder="Selecione a sala"
+                    >
+                    <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
+                </ComboBox>
+        </l:VerticalLayout>
+    </l:HorizontalLayout>
+            
+    <footer>
+        <OverflowToolbar>
+            <ToolbarSpacer />
+            <Button type="Default" press="onCloseDialog" text="Cancelar"/>
+            <Button type="Emphasized" press="handleAddNewSession" text="Salvar"/>
+        </OverflowToolbar>
+    </footer>
+
+    </Dialog>
+</core:FragmentDefinition>

@@ -3,9 +3,21 @@ sap.ui.define([
     'use strict';
     
     return {
-        formatDate: function(sDate){
+        convertDate: function(sDate){
             const dateFormated = new Date(sDate)
             return dateFormated
+        },
+        formatDate: function(sDate){
+            const dateFormated = new Date(sDate)
+            const sLocale = 'pt-br' // Usar i18n
+            const oOptions = {
+                year: 'numeric',
+                month: 'short', 
+                day: 'numeric', 
+                hour: 'numeric', 
+                minute: 'numeric'
+            }
+            return dateFormated.toLocaleString(sLocale, oOptions)
         },
         defineColorTypeAppointment: function(sSection){
             switch(sSection){
@@ -44,6 +56,13 @@ sap.ui.define([
                     return ""
                 }
             }
+        },
+        firstWordToUpper: function(sString){
+            if(!sString) return
+
+            const [firstPosition, ...rest] = sString
+
+            return firstPosition.toUpperCase() + rest.join("")
         }
     }
 });

@@ -1,0 +1,32 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+    xmlns:f="sap.ui.layout.form"
+	xmlns:core="sap.ui.core">
+	<ResponsivePopover
+		id="SessionDetailsPopover"
+		title="{EventName}"
+		class="sapUiContentPadding"
+		placement="Auto" >
+		<beginButton>
+			<Button id="EditSessionDialog" text="Editar" press="handleEditDialog" />
+		</beginButton>
+		<endButton>
+			<Button  text="Detalhes" icon="sap-icon://forward" iconFirst="false" type="Emphasized" press="handleCloseButton" />
+		</endButton>
+		<content>
+			<f:SimpleForm
+				editable="false"
+				layout="ResponsiveGridLayout"
+				singleContainerFullSize="false">
+			<Label visible="{= ${EventType} ? true : false}" text="Informações adicionais" labelFor="moreInfoText"/>
+			<Text visible="{= ${EventType} ? true : false}" id="moreInfoText" text="{path: 'EventType', formatter: '.formatter.defineTypeAppointment'}"/>
+			<Label text="Localização" />
+			<Text text="Setor {path: 'Sector', formatter: '.formatter.firstWordToUpper'} - Sala {path: 'Room', formatter: '.formatter.firstWordToUpper'}"/>
+			<Label text="Início" labelFor="startDateText"/>
+			<Text id="startDateText" text="{path: 'StartDate', formatter: '.formatter.formatDate'}"/>
+			<Label text="Fim" labelFor="endDateText"/>
+			<Text id="endDateText" text="{path: 'EndDate', formatter: '.formatter.formatDate'}"/>
+		</f:SimpleForm>
+		</content>
+	</ResponsivePopover>
+</core:FragmentDefinition>

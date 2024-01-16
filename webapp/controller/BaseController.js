@@ -19,11 +19,7 @@ sap.ui.define([
             const sDialog = this.DialogTypes.find(el => oEvent.getSource().getId().includes(el))
 
             if(!this[sDialog]){
-                this[sDialog] = Fragment.load({
-                    name: `com.lab2dev.schedulesbtpexp.view.fragments.${sDialog}`,
-                    id: this.createId("").slice(0, -2),
-                    controller: this
-                  })
+                this[sDialog] = this._createFragment(sDialog)
                 }
 
                 this[sDialog].then(oDialog => {
@@ -31,13 +27,35 @@ sap.ui.define([
                     oDialog.open()
                 })
         },
+        onOpenPopover: function(sPopover, oAppointment){
+            const oView = this.getView()
+
+            if(!this[sPopover]){
+                this[sPopover] = this._createFragment(sPopover).then(function(oDetailsPopover){
+                    oView.addDependent(oDetailsPopover);
+                    return oDetailsPopover;
+                });
+                }
+
+                this[sPopover].then(oDetailsPopover => {
+                    oDetailsPopover.setBindingContext(oAppointment.getBindingContext())
+                    oDetailsPopover.openBy(oAppointment)
+                })
+        },
+        _createFragment: function(sFragment){
+            return Fragment.load({
+                name: `com.lab2dev.schedulesbtpexp.view.fragments.${sFragment}`,
+                id: this.getView().getId(),
+                controller: this
+              })
+        },
         onCloseDialog: function(){
             const sDialog = this.DialogTypes.find(
-                                sDialog => {
-                                    const sId = this.getView().getDependents().find(el => el.isOpen()).getId()
-                                    return sId.includes(sDialog)
-                                }
-                        )
+                        sDialog => {
+                            const sId = this.getView().getDependents().find(el => el.isOpen()).getId()
+                            return sId.includes(sDialog)
+                        }
+                )
 
 
             this[sDialog].then((oDialog) => {

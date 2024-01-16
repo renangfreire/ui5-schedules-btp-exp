@@ -1,18 +1,17 @@
 <core:FragmentDefinition 
-    controllerName="com.lab2dev.schedulesbtexp.controller.SchedulesFragment"
     xmlns:form="sap.ui.layout.form"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:l="sap.ui.layout"
 >
     <Dialog
-        id="NewSession"
-        title="Nova Sessão" 
+        id="EditSession"
+        title="Editar Sessão" 
     >
     <l:HorizontalLayout class="sapUiResponsiveContentPadding">
         <l:VerticalLayout class="sapUiTinyMarginEnd" width="220px">
         <Label text="Título da sessão" required="true" />
-            <Input class="sapUiSmallMarginBottom" type="Text" value="{newSessionForm>/EventName}" placeholder="Digite o título" />
+            <Input class="sapUiSmallMarginBottom" type="Text" value="{editSessionForm>/EventName}" placeholder="Digite o título" />
             <Label text="Responsável" required="true" />
                 <ComboBox
                     width="100%"
@@ -23,7 +22,7 @@
                     class="sapUiSmallMarginBottom"
                     placeholder="Selecione o Responsável"
                     selectionChange="onSelectOrator"
-                    selectedKey="{newSessionForm>/OratorId}"
+                    selectedKey="{editSessionForm>/OratorId}"
                     >
                     <core:Item key="{Id}" text="{Name}" />
                 </ComboBox>
@@ -32,7 +31,7 @@
 					placeholder="Selecione"
 					change="handleChange"
                     displayFormat="M/d/yy h:mm a"
-                    value="{newSessionForm>/StartDate}"
+                    value="{editSessionForm>/StartDate}"
 					class="sapUiSmallMarginBottom"/>
             <Label text="Setor" required="true" />
                  <ComboBox
@@ -43,7 +42,7 @@
                     }"
                     class="sapUiSmallMarginBottom"
                     placeholder="Selecione o setor"
-                    selectedKey="{newSessionForm>/Sector}"
+                    selectedKey="{editSessionForm>/Sector}"
                     >
                     <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
                 </ComboBox>
@@ -59,18 +58,18 @@
                     }"
                     class="sapUiSmallMarginBottom"
                     placeholder="Selecione o tipo do evento"
-                    selectedKey="{newSessionForm>/EventType}"
+                    selectedKey="{editSessionForm>/EventType}"
                     >
                     <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
                 </ComboBox>
             <Label text="Empresa" required="true" labelFor="companyName" />
-                <Input id="inputCompanyName" class="sapUiSmallMarginBottom" type="Text" editable="false" value="{newSessionForm>/CompanyName}"/>
+                <Input id="companyName" class="sapUiSmallMarginBottom" type="Text" editable="false" value="{editSessionForm>/CompanyName}"/>
             <Label text="Duração" required="true" />
                 <ComboBox
                     width="100%"
                     placeholder="Selecione a duração"
                     class="sapUiSmallMarginBottom"
-                    selectedKey="{newSessionForm>/Duration}"
+                    selectedKey="{editSessionForm>/Duration}"
                     items="{
                         path: 'viewDetails>/timeMock',
                         sorter: { path: 'viewDetails>text' }
@@ -85,7 +84,7 @@
                         sorter: { path: 'viewDetails>text' }
                     }"
                     class="sapUiSmallMarginBottom"
-                    selectedKey="{newSessionForm>/Room}"
+                    selectedKey="{editSessionForm>/Room}"
                     placeholder="Selecione a sala"
                     >
                     <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />

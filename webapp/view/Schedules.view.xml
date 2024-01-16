@@ -17,8 +17,8 @@
 
         <VBox>
             <PlanningCalendar
-                id="planningCalendar"
-                startDate="{path: '/StartDate', formatter: '.formatter.formatDate' }"
+                id="sessionsCalendar"
+                startDate="{path: '/StartDate', formatter: '.formatter.convertDate' }"
                 rows="{path: '/Orators'}"
                 appointmentsVisualization="Filled"
                 appointmentSelect="handleAppointmentSelect"
@@ -30,7 +30,7 @@
                     <Title text="Programação do evento" titleStyle="H4"/>
                     <HBox >
                     <SearchField  />
-                        <Button id="NewSessionDialog" icon="sap-icon://add" press=".openNewSessionDialog" tooltip="Add"/>
+                        <Button id="CreateNewSessionDialog" icon="sap-icon://add" press=".openNewSessionDialog" tooltip="Add"/>
                     </HBox>
                 </toolbarContent>
                 <rows>
@@ -42,8 +42,8 @@
                         appointments="{path : 'Appointments', templateShareable: false }">
                         <appointments>
                             <unified:CalendarAppointment
-                                startDate="{path: 'StartDate', formatter: '.formatter.formatDate' }"
-                                endDate="{path: 'EndDate', formatter: '.formatter.formatDate' }"
+                                startDate="{path: 'StartDate', formatter: '.formatter.convertDate' }"
+                                endDate="{path: 'EndDate', formatter: '.formatter.convertDate' }"
                                 title="{EventName}"
                                 text="{path: 'EventType', formatter: '.formatter.defineTypeAppointment'}"
                                 type="{path: 'Sector', formatter: '.formatter.defineColorTypeAppointment'}"
