@@ -158,11 +158,6 @@ sap.ui.define([
 
                 this.onOpenPopover(sPopover, oAppointment)
             },
-            handleChangeInterval: function(oEvent){
-                // Função que vai me deixar criar o filtro bom!
-                // Porém é válido fazer isso? => Ver com o Marcelo!
-                console.log("changed Interval")
-            },
             onSelectOrator: function(oEvent){
                 try {
                     const oModel = this.getModel();
@@ -312,6 +307,11 @@ sap.ui.define([
                     this.MessageBox.warning(error.message)
                }
             },
+            onSearch: function(oEvent){
+                const sQuery = oEvent.getParameter("newValue")
+
+                this._filterSession(sQuery)
+            },
             _verifySessionData: function(oSessionForm, oOrator){
                 const oAppointment = oOrator.Appointments.find(appointment => appointment.Id === oSessionForm.Id)
                 
@@ -397,7 +397,57 @@ sap.ui.define([
                 const aCalendar = this.byId("sessionsCalendar")
                 const aRows = aCalendar.getBinding("rows")
 
-                aRows.filter([filter], "Application")
+                aRows.filter([filter], "DefaultFilter")
             },
+            _filterSession: function(sQuery){
+                const aCalendar = this.byId("sessionsCalendar")
+                let enabledFilterAppointment = false
+                const aFilters = []
+
+                if(sQuery){
+                  const oFilter = new Filter({
+                        filters: [
+                            new Filter("Name", FilterOperator.Contains, sQuery.toLowerCase()),
+                            new Filter("CompanyName", FilterOperator.Contains, sQuery.toLowerCase()),
+                            new Filter("Appointments", (appointment) => {
+                                const appointmentVerification = appointment.some(el => el.EventType.includes(sQuery.toLowerCase()))
+
+                                if(appointmentVerification){
+                                    enabledFilterAppointment = true
+                                    return true
+                                }
+                            })
+                        ],
+                        and: false
+                  })
+
+                aFilters.push(oFilter)
+            }
+            
+            const oRows = aCalendar.getBinding("rows")
+            
+            oRows.filter(aFilters, "Application")
+
+            this._filterAppointment(sQuery, enabledFilterAppointment)
+            
+            },
+            _filterAppointment: function(sQuery, enabledFilterAppointment){
+                const aCalendar = this.byId("sessionsCalendar")
+                
+                aCalendar.getAggregation("rows").map(orator => {
+                    const aFilter = []
+
+                    if(enabledFilterAppointment){
+                        const oFilter = new Filter("EventType", FilterOperator.Contains, sQuery)
+                        
+                        aFilter.push(oFilter)
+                    }
+                    
+                    const oAppointmentsBinding = orator.getBinding("appointments")
+
+                    oAppointmentsBinding.filter(aFilter, "Application")
+                })
+              
+            }
         });
     });

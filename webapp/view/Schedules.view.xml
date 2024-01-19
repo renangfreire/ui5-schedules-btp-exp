@@ -8,8 +8,6 @@
     displayBlock="true"
     >
     <Page id="page" showHeader="false">
-        <!-- Problema na definição do Titulo, decidir com UX ou Marcelo qual fica melhor -->
-
         <l:VerticalLayout class="sapUiMediumMargin">
          <l:VerticalLayout class="sapUiSmallMarginBottom">
             <main:Title text="Agenda" level="H2" />
@@ -23,14 +21,12 @@
                 appointmentsVisualization="Filled"
                 appointmentSelect="handleAppointmentSelect"
                 noDataText="Nenhuma sessão até o momento!"
-                startDateChange="handleChangeInterval"
-                rowHeaderPress="handleRowHeaderPress"
                 showEmptyIntervalHeaders="false"
                 showWeekNumbers="true" >
                 <toolbarContent>
                     <Title text="Programação do evento" titleStyle="H4"/>
                     <HBox >
-                    <SearchField  />
+                        <SearchField liveChange="onSearch" />
                         <Button id="CreateNewSessionDialog" icon="sap-icon://add" press=".openNewSessionDialog" tooltip="Add"/>
                     </HBox>
                 </toolbarContent>
@@ -47,8 +43,7 @@
                                 endDate="{path: 'EndDate', formatter: '.formatter.convertDate' }"
                                 title="{EventName}"
                                 text="{path: 'EventType', formatter: '.formatter.defineTypeAppointment'}"
-                                type="{path: 'Sector', formatter: '.formatter.defineColorTypeAppointment'}"
-                                tentative="{tentative}">
+                                type="{path: 'Sector', formatter: '.formatter.defineColorTypeAppointment'}">
                             </unified:CalendarAppointment>
                         </appointments>
                     </PlanningCalendarRow>
@@ -59,9 +54,9 @@
 
         <footer>
         <OverflowToolbar >
-        <ToolbarSpacer />
-        <Button type="Emphasized" text="Ver sessões" icon="sap-icon://forward" iconFirst="false"/>
-        <Button type="Emphasized" text="Ver repositórios" icon="sap-icon://forward" iconFirst="false"/>
+            <ToolbarSpacer />
+            <Button type="Emphasized" text="Ver sessões" icon="sap-icon://forward" iconFirst="false"/>
+            <Button type="Emphasized" text="Ver repositórios" icon="sap-icon://forward" iconFirst="false"/>
         </OverflowToolbar>
         </footer>
        

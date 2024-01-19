@@ -5,7 +5,7 @@
             "Id": "1",
             "Pic": "../assets/images/Man.png",
             "Name": "John Miller",
-            "Role": "team member",
+            "Role": "Lab2dev",
             "CompanyName": "SAP",
             "Appointments": [
                 {
