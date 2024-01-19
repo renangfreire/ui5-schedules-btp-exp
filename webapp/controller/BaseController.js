@@ -50,8 +50,10 @@ sap.ui.define([
         },
         onCloseDialog: function(){
             const oDialog = this.getDialogOpen()
+            debugger
 
             oDialog.then((oDialog) => {
+                debugger
                 oDialog.close()
             })
         },

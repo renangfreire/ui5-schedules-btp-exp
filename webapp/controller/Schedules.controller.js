@@ -16,9 +16,10 @@ sap.ui.define([
                 "CreateNewSession",
                 "SessionDetails",
                 "EditSession",
+                "DeleteSession"
             ],
             onInit: function () {
-                const oData = models.getSchedules();
+                const oData = models.getAppointments();
 
                 oData.then((data) => {
                     const oModel = new JSONModel(data);
@@ -148,22 +149,8 @@ sap.ui.define([
 
                 this.onOpenDialog(oEvent)
             },
-            _getOratorId: function(oAppointment){
-                const oModel = oAppointment.getModel()
-                const sPath = oAppointment.getPath()
-                const sOratorPath = sPath.match(/\/Orators\/(\d+)/)[0]
-            
-                const oOrator = oModel.getProperty(sOratorPath)
-
-                return oOrator.Id
-            },
-            _getDuration: function(oData){
-                const iStartTimeTimestamp = new Date(oData.StartDate).getTime()
-                const iEndDateTimestamp = new Date(oData.EndDate).getTime()
-
-                const totalDuration = (iEndDateTimestamp - iStartTimeTimestamp) / 1000 / 60;
-
-                return String(totalDuration)
+            handleDeleteSessionDialog: function(oEvent){
+                this.onOpenDialog(oEvent)
             },
             filterSessions: function(){
                 // Filtrando as Sessões para caso o usuário não possua nenhuma sessão no momento
@@ -233,7 +220,7 @@ sap.ui.define([
 
                     oDialog.setBusy(true)
                     
-                    oNewSessionForm["EndDate"] = this.getEndDate(oNewSessionForm.Duration, oNewSessionForm.StartDate)
+                    oNewSessionForm["EndDate"] = this._getEndDate(oNewSessionForm.Duration, oNewSessionForm.StartDate)
                     oNewSessionForm.StartDate = new Date(oNewSessionForm.StartDate).toISOString()
                     
                     // Verify if exist an another appointment in same time!    
@@ -241,7 +228,7 @@ sap.ui.define([
 
                     const oOrator = oAppointments.Orators.find(orator => orator.Id === oNewSessionForm.OratorId)
 
-                    const ExistsAlreadySession = this.verifyAlreadySession(oOrator, oNewSessionForm)
+                    const ExistsAlreadySession = this._verifyAlreadySession(oOrator, oNewSessionForm)
 
                     if(ExistsAlreadySession){
                         throw new Error("Já existe alguma sessão agendada para esse palestrante durante os horários selecionados, por favor selecione outro horário!")
@@ -249,7 +236,7 @@ sap.ui.define([
 
                     const {Duration, ...oData} = oNewSessionForm
 
-                    const oUpdatedData = models.postSchedule(oData)
+                    const oUpdatedData = models.postAppointment(oData)
                     
                     this.MessageBox.success("Sessão criada com sucesso!")
                     oDialog.setBusy(false)
@@ -272,7 +259,7 @@ sap.ui.define([
                     const {AppointmentDetails, ...oEditSessionForm} = {...this.getModel("editSessionForm").getData()}
 
                     oEditSessionForm.StartDate = oEditSessionForm.StartDate.toISOString()
-                    oEditSessionForm["EndDate"] = this.getEndDate(oEditSessionForm.Duration, oEditSessionForm.StartDate)
+                    oEditSessionForm["EndDate"] = this._getEndDate(oEditSessionForm.Duration, oEditSessionForm.StartDate)
 
                     const ExistsValueEmpty = Object.values(oEditSessionForm).some(value =>  value.trim() === '')
                         
@@ -292,13 +279,13 @@ sap.ui.define([
                         throw new Error("Não houve alterações")
                     }
 
-                    const ExistsAlreadySession = this.verifyAlreadySession(oOrator, oEditSessionForm, oDialog.getId())
+                    const ExistsAlreadySession = this._verifyAlreadySession(oOrator, oEditSessionForm, oDialog.getId())
 
                     if(ExistsAlreadySession){
                         throw new Error("Já existe alguma sessão agendada para esse palestrante durante os horários selecionados, por favor selecione outro horário!")
                     }
 
-                    const oUpdatedData = models.putSchedule(oEditSessionForm, AppointmentDetails.path)
+                    const oUpdatedData = models.putAppointment(oEditSessionForm, AppointmentDetails.path)
 
                     this.updateModel(oUpdatedData)
                     this.onCloseDialog()
@@ -308,7 +295,8 @@ sap.ui.define([
                     this.MessageBox.warning(error.message)
                 }
             },
-            handleDeleteSession: function(oEvent){
+            onConfirmDeleteSession: function(){
+                
             },
             _verifySessionDates: function(oSessionForm, oOrator){
                 const oAppointment = oOrator.Appointments.find(appointment => appointment.Id === oSessionForm.Id)
@@ -323,7 +311,7 @@ sap.ui.define([
                 }
 
             },
-            getEndDate: function(iMinutes, sStartDate){
+            _getEndDate: function(iMinutes, sStartDate){
                 const DurationTimestamp = iMinutes * 60 * 1000;
 
                 const startDateTimestamp = new Date(sStartDate).getTime();
@@ -331,7 +319,7 @@ sap.ui.define([
 
                 return endDate.toISOString()
             },
-            verifyAlreadySession: function(oOrator, oFormData, sDialogId = ""){
+            _verifyAlreadySession: function(oOrator, oFormData, sDialogId = ""){
                 const {StartDate, EndDate} = oFormData
                 const startDateTimestamp = new Date(StartDate).getTime()
                 const endDateTimestamp = new Date(EndDate).getTime()
@@ -363,6 +351,23 @@ sap.ui.define([
 
                     return false
                 })
-            }
+            },
+            _getOratorId: function(oAppointment){
+                const oModel = oAppointment.getModel()
+                const sPath = oAppointment.getPath()
+                const sOratorPath = sPath.match(/\/Orators\/(\d+)/)[0]
+            
+                const oOrator = oModel.getProperty(sOratorPath)
+
+                return oOrator.Id
+            },
+            _getDuration: function(oData){
+                const iStartTimeTimestamp = new Date(oData.StartDate).getTime()
+                const iEndDateTimestamp = new Date(oData.EndDate).getTime()
+
+                const totalDuration = (iEndDateTimestamp - iStartTimeTimestamp) / 1000 / 60;
+
+                return String(totalDuration)
+            },
         });
     });

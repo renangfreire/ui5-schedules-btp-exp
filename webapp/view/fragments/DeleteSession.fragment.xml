@@ -5,7 +5,7 @@
     xmlns:u="sap.suite.ui.commons"
 >
     <Dialog
-        id="DeleteUserDialog"
+        id="DeleteSessionDialog"
         title="Confirmar exclusão"
     >
         <content>
@@ -16,7 +16,7 @@
                         class="sapUiMSmallMargin"
                         wrapping="true" 
                         textAlign="Center"
-                        text="Tem certeza que deseja EXCLUIR &#13;&#10; a sessão?" />
+                        text="Tem certeza que deseja EXCLUIR &#13;&#10;essa sessão?" />
                 </HBox>          
             </VBox>
         </VBox>
@@ -31,9 +31,9 @@
 						press=".onCloseDialog"
 						ariaHasPopup="Dialog" />
                     <Button id="btnConfirmDeleteUser"
-						text="Exluir linha"
+						text="Excluir sessão"
 						type="Reject"
-						press=".ConfirmDeleteUser"
+						press=".onConfirmDeleteSession"
 						ariaHasPopup="Dialog" />
 				</content>
 			</Toolbar>

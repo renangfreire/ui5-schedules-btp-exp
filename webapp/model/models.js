@@ -33,18 +33,18 @@ sap.ui.define([
                     throw new Error("Error")
                 
             },
-            getAppointments: async function(){
+            getSchedules: async function(){
                 const oData = await this.localStorage.getItem("appointments")
                 
                 if(!oData) return false
 
                 return JSON.parse(oData)
             },
-            postAppointments: function(oData){
+            postSchedules: function(oData){
                 this.localStorage.setItem("appointments", JSON.stringify(oData))
             },
-            getSchedules: function(){
-                const oData = this.getAppointments()
+            getAppointments: function(){
+                const oData = this.getSchedules()
 
                 return oData
                     .then(                        
@@ -58,11 +58,11 @@ sap.ui.define([
                     )
                     .catch(err => console.log(err))
             },
-            postSchedule: function(oNewSessionForm){
+            postAppointment: function(oNewSessionForm){
                 // Logica com meu queridissmo localStorage por enquanto!
                 // Como estou utilizando o local vou puxar tudo!
 
-                const oAppointments = this.getAppointments();
+                const oAppointments = this.getSchedules();
 
                 return oAppointments.then(oData => {
                     oData.Orators.forEach(orator => {
@@ -71,19 +71,19 @@ sap.ui.define([
                         }
                     })
 
-                   this.postAppointments(oData)
+                   this.postSchedules(oData)
 
                    return oData
                 })
             },
-            putSchedule: function(oAppointment, sPath){
+            putAppointment: function(oAppointment, sPath){
                 // Codigo super funcional pra localStorage, mas nada escalável
                 const aPathSplited = sPath.split('/')
                 const iOratorId = oAppointment.OratorId
                 const OratorPath = aPathSplited.at(2)
                 const AppointmentIndex = aPathSplited.at(-1); 
 
-                const oAppointments = this.getAppointments();
+                const oAppointments = this.getSchedules();
 
                 return oAppointments.then(oData => {
                     const oOrator = oData.Orators.find(orator => orator.Id === iOratorId)
@@ -98,11 +98,14 @@ sap.ui.define([
 
                     oOrator.Appointments.push(oAppointment)
 
-                    this.postAppointments(oData)
+                    this.postSchedules(oData)
 
                     return oData
                 })
                 
+            },
+            deleteAppointment: function(){
+
             }
     };
 });

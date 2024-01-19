@@ -96,7 +96,7 @@
         <OverflowToolbar>
             <ToolbarSpacer />
             <Button type="Default" press="onCloseDialog" text="Cancelar"/>
-            <Button type="Reject" press="" text="Excluir Sessão"/>
+            <Button id="DeleteSession" type="Reject" press="handleDeleteSessionDialog" text="Excluir Sessão"/>
             <Button type="Emphasized" press="handleEditSession" text="Salvar"/>
         </OverflowToolbar>
     </footer>
