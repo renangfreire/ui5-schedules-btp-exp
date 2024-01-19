@@ -14,7 +14,6 @@ sap.ui.define([
         setModel: function(oModel, sNameModel){
             return this.getView().setModel(oModel, sNameModel)
         },
-
         onOpenDialog: function(oEvent){
             const sDialog = this.DialogTypes.find(el => oEvent.getSource().getId().includes(el))
 
@@ -50,15 +49,9 @@ sap.ui.define([
               })
         },
         onCloseDialog: function(){
-            const sDialog = this.DialogTypes.find(
-                        sDialog => {
-                            const sId = this.getView().getDependents().find(el => el.isOpen()).getId()
-                            return sId.includes(sDialog)
-                        }
-                )
+            const oDialog = this.getDialogOpen()
 
-
-            this[sDialog].then((oDialog) => {
+            oDialog.then((oDialog) => {
                 oDialog.close()
             })
         },
@@ -68,6 +61,15 @@ sap.ui.define([
                 this.getModel(sModelName).setData(data)
             })
 
+        },
+        getDialogOpen: function(){
+            const sDialog = this.DialogTypes.find(
+                    sDialog => {
+                        const sId = this.getView().getDependents().find(el => el.isOpen()).getId()
+                        return sId.includes(sDialog)
+                    }
+                )
+            return this[sDialog]
         }
     })
 });

@@ -67,9 +67,7 @@ sap.ui.define([
                 return oAppointments.then(oData => {
                     oData.Orators.forEach(orator => {
                         if(orator.Id === oNewSessionForm.OratorId){
-                            const {OratorId, ...newSessionData} = oNewSessionForm
-
-                            orator.Appointments.push(newSessionData)
+                            orator.Appointments.push({...oNewSessionForm, Id: String(+orator.Appointments.at(-1)?.Id + 1 || 100)})
                         }
                     })
 
@@ -77,6 +75,34 @@ sap.ui.define([
 
                    return oData
                 })
+            },
+            putSchedule: function(oAppointment, sPath){
+                // Codigo super funcional pra localStorage, mas nada escalável
+                const aPathSplited = sPath.split('/')
+                const iOratorId = oAppointment.OratorId
+                const OratorPath = aPathSplited.at(2)
+                const AppointmentIndex = aPathSplited.at(-1); 
+
+                const oAppointments = this.getAppointments();
+
+                return oAppointments.then(oData => {
+                    const oOrator = oData.Orators.find(orator => orator.Id === iOratorId)
+
+                    //Removing Appointment in the last position
+                    oData.Orators.at(OratorPath).Appointments.splice(AppointmentIndex, 1)
+
+                    if(oOrator.Appointments.at(AppointmentIndex)?.Id === oAppointment.Id){
+                        oOrator.Appointments.splice(AppointmentIndex, 1)
+                    }
+
+
+                    oOrator.Appointments.push(oAppointment)
+
+                    this.postAppointments(oData)
+
+                    return oData
+                })
+                
             }
     };
 });

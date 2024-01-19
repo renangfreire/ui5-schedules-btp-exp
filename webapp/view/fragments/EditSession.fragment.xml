@@ -31,7 +31,7 @@
 					placeholder="Selecione"
 					change="handleChange"
                     displayFormat="M/d/yy h:mm a"
-                    value="{editSessionForm>/StartDate}"
+                    dateValue="{editSessionForm>/StartDate}"
 					class="sapUiSmallMarginBottom"/>
             <Label text="Setor" required="true" />
                  <ComboBox
@@ -96,7 +96,8 @@
         <OverflowToolbar>
             <ToolbarSpacer />
             <Button type="Default" press="onCloseDialog" text="Cancelar"/>
-            <Button type="Emphasized" press="handleAddNewSession" text="Salvar"/>
+            <Button type="Reject" press="" text="Excluir Sessão"/>
+            <Button type="Emphasized" press="handleEditSession" text="Salvar"/>
         </OverflowToolbar>
     </footer>
 

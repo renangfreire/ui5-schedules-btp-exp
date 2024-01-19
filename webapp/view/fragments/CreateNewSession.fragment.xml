@@ -5,7 +5,7 @@
     xmlns:l="sap.ui.layout"
 >
     <Dialog
-        id="NewSession"
+        id="CreateNewSession"
         title="Nova Sessão" 
     >
     <l:HorizontalLayout class="sapUiResponsiveContentPadding">
@@ -62,7 +62,7 @@
                     >
                     <core:Item key="{viewDetails>key}" text="{viewDetails>text}" />
                 </ComboBox>
-            <Label text="Empresa" required="true" labelFor="companyName" />
+            <Label text="Empresa" required="true" labelFor="inputCompanyName" />
                 <Input id="inputCompanyName" class="sapUiSmallMarginBottom" type="Text" editable="false" value="{newSessionForm>/CompanyName}"/>
             <Label text="Duração" required="true" />
                 <ComboBox
