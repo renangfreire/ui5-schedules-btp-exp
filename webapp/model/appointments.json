@@ -1,2 +1,137 @@
-
-{"StartDate":"2017-01-15T02:00:00","Orators":[{"Id":"1","Pic":"../assets/images/Man.png","Name":"John Miller","Role":"team member","CompanyName":"SAP","Appointments":[]},{"Id":"2","Pic":"../assets/images/Woman.png","Name":"Donna Moore","Role":"team member","CompanyName":"Empresa C","Appointments":[]},{"Id":"3","Pic":"sap-icon://employee","Name":"Max Mustermann","Role":"team member","CompanyName":"Empresa B","Appointments":[]},{"Id":"4","Pic":"../assets/images/Man.png","Name":"Renan Freire","Role":"team member","CompanyName":"Lab2dev","Appointments":[],"headers":[]}]}
+{
+    "StartDate": "2017-01-15T02:00:00",
+    "Orators": [
+        {
+            "Id": "1",
+            "Pic": "../assets/images/Man.png",
+            "Name": "John Miller",
+            "Role": "team member",
+            "CompanyName": "SAP",
+            "Appointments": [
+                {
+                    "EventName": "Titulo",
+                    "EventType": "handson",
+                    "CompanyName": "SAP",
+                    "OratorId": "1",
+                    "Room": "dunga",
+                    "Sector": "rosa",
+                    "StartDate": "2024-01-19T16:00:00.000Z",
+                    "EndDate": "2024-01-19T18:00:00.000Z",
+                    "Id": "100",
+                    "Duration": "120"
+                },
+                {
+                    "EventName": "Titulo2",
+                    "EventType": "keynote",
+                    "CompanyName": "SAP",
+                    "OratorId": "1",
+                    "Room": "dunga",
+                    "Sector": "rosa",
+                    "StartDate": "2024-01-19T18:00:00.000Z",
+                    "EndDate": "2024-01-19T20:00:00.000Z",
+                    "Id": "101",
+                    "Duration": "120"
+                }
+            ]
+        },
+        {
+            "Id": "2",
+            "Pic": "../assets/images/Woman.png",
+            "Name": "Donna Moore",
+            "Role": "team member",
+            "CompanyName": "Empresa C",
+            "Appointments": []
+        },
+        {
+            "Id": "3",
+            "Pic": "sap-icon://employee",
+            "Name": "Max Mustermann",
+            "Role": "team member",
+            "CompanyName": "Empresa B",
+            "Appointments": []
+        },
+        {
+            "Id": "4",
+            "Pic": "../assets/images/Man.png",
+            "Name": "Renan Freire",
+            "Role": "team member",
+            "CompanyName": "Lab2dev",
+            "Appointments": [],
+            "headers": []
+        }
+    ],
+    "EventDetails": {
+        "timeMock": [
+            {
+                "key": "60",
+                "text": "1h"
+            },
+            {
+                "key": "120",
+                "text": "2h"
+            },
+            {
+                "key": "180",
+                "text": "3h"
+            }
+        ],
+        "setorsMock": [
+            {
+                "key": "rosa",
+                "text": "Setor Rosa"
+            },
+            {
+                "key": "vermelho",
+                "text": "Setor Vermelho"
+            },
+            {
+                "key": "verde",
+                "text": "Setor Verde"
+            },
+            {
+                "key": "roxo",
+                "text": "Setor Roxo"
+            }
+        ],
+        "roomsMock": [
+            {
+                "key": "ronaldo",
+                "text": "Sala Ronaldo"
+            },
+            {
+                "key": "socrates",
+                "text": "Sala Sócrates"
+            },
+            {
+                "key": "dunga",
+                "text": "Sala Dunga"
+            },
+            {
+                "key": "taffarel",
+                "text": "Sala Taffarel"
+            },
+            {
+                "key": "neymar",
+                "text": "Sala Neymar"
+            }
+        ],
+        "typeEventMock": [
+            {
+                "key": "lecture",
+                "text": "Lecture"
+            },
+            {
+                "key": "keynote",
+                "text": "Keynote"
+            },
+            {
+                "key": "handson",
+                "text": "Hands-on"
+            },
+            {
+                "key": "onboarding",
+                "text": "Onboarding"
+            }
+        ]
+    }
+}

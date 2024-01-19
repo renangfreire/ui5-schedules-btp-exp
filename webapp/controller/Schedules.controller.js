@@ -26,7 +26,7 @@ sap.ui.define([
                 
                     this.getView().setModel(oModel)
 
-                    this.filterSessions() 
+                    this._defaultFilterSessions() 
                 })
 
                 const oModel = new JSONModel({
@@ -151,17 +151,7 @@ sap.ui.define([
             },
             handleDeleteSessionDialog: function(oEvent){
                 this.onOpenDialog(oEvent)
-            },
-            filterSessions: function(){
-                // Filtrando as Sessões para caso o usuário não possua nenhuma sessão no momento
-                // Melhorar é filtrar com base no tempo selecionado!
-                const filter = new Filter("Appointments", (appointment) => appointment.length ? true : false)
-            
-                const aCalendar = this.byId("sessionsCalendar")
-                const aRows = aCalendar.getBinding("rows")
-
-                aRows.filter([filter], "Application")
-            },
+            },       
             handleAppointmentSelect: function(oEvent){
                 const oAppointment = oEvent.getParameter("appointment")
                 const sPopover = this.DialogTypes.find(el => el === "SessionDetails")
@@ -181,26 +171,24 @@ sap.ui.define([
 
                     const oDialog = this.getDialogOpen()
 
-                    oDialog.then(dialog => {
-                        const sDialogId = dialog.getId()
-                        let oInputCompany
+                    const sDialogId = oDialog.getId()
+                    let oInputCompany
 
-                        if(sDialogId.includes("EditSession")){
-                            oInputCompany = this.byId("companyName")
-                        }
+                    if(sDialogId.includes("EditSession")){
+                        oInputCompany = this.byId("companyName")
+                    }
 
-                        if(sDialogId.includes("CreateNewSession")){
-                            oInputCompany = this.byId("inputCompanyName")
-                        }
+                    if(sDialogId.includes("CreateNewSession")){
+                        oInputCompany = this.byId("inputCompanyName")
+                    }
 
-                        if(!oInputCompany){
-                            return
-                        }
+                    if(!oInputCompany){
+                        return
+                    }
 
-                        const oSelectedOrator = oModel.getData().Orators.find(el => el.Id === sSelectedKey)       
+                    const oSelectedOrator = oModel.getData().Orators.find(el => el.Id === sSelectedKey)       
 
-                        oInputCompany.setValue(oSelectedOrator.CompanyName)
-                    })
+                    oInputCompany.setValue(oSelectedOrator.CompanyName)
                 } catch (error) {
                     this.MessageBox.error("Error: User not assigned in any company!")
                 }
@@ -274,11 +262,11 @@ sap.ui.define([
 
                     const oOrator = oAppointments.Orators.find(orator => orator.Id === oEditSessionForm.OratorId)
 
-                    const bCheckHaveChanges = this._verifySessionDates(oEditSessionForm, oOrator)
+                    const bCheckHaveChanges = this._verifySessionData(oEditSessionForm, oOrator)
 
 
                     if(bCheckHaveChanges){
-                        throw new Error("Não houve alterações")
+                        throw new Error("Não houveram alterações")
                     }
 
                     const ExistsAlreadySession = this._verifyAlreadySession(oOrator, oEditSessionForm, oDialog.getId())
@@ -296,6 +284,7 @@ sap.ui.define([
                     
                     this.MessageBox.success("Sessão Editada!")
                 } catch (error) {
+                    this.byId("EditSession").setBusy(false)
                     this.MessageBox.warning(error.message)
                 }
             },
@@ -314,28 +303,33 @@ sap.ui.define([
                 
                 oDialog.setBusy(false)
 
-                this.MessageBox.success("Sessão Removida!")
-
-                debugger
                 this.onCloseDialog()
 
-                this.onCloseDialog()
+                this.MessageBox.success("Sessão removida com sucesso!")
+
+                this.byId("EditSession").close()
             } catch (error) {
                     this.MessageBox.warning(error.message)
                }
             },
-            _verifySessionDates: function(oSessionForm, oOrator){
+            _verifySessionData: function(oSessionForm, oOrator){
                 const oAppointment = oOrator.Appointments.find(appointment => appointment.Id === oSessionForm.Id)
-
+                
                 // Caso o Orator seja alterado
                 if(!oAppointment){
                     return
                 }
 
-                if(oAppointment.StartDate === oSessionForm.StartDate && oAppointment.EndDate === oSessionForm.EndDate ){
-                    return true
-                }
+                const aAppointmentValues = Object.values(oAppointment)
+                const aSessionFormValues = Object.values(oSessionForm)
 
+                // Se as datas forem diferentes
+                
+                const verifyHaveChanges = aAppointmentValues.every((value) => {
+                    return aSessionFormValues.includes(value)
+                })
+
+                return verifyHaveChanges
             },
             _getEndDate: function(iMinutes, sStartDate){
                 const DurationTimestamp = iMinutes * 60 * 1000;
@@ -394,6 +388,16 @@ sap.ui.define([
                 const totalDuration = (iEndDateTimestamp - iStartTimeTimestamp) / 1000 / 60;
 
                 return String(totalDuration)
+            },
+            _defaultFilterSessions: function(){
+                // Filtrando as Sessões para caso o usuário não possua nenhuma sessão no momento
+                // Melhorar é filtrar com base no tempo selecionado!
+                const filter = new Filter("Appointments", (appointment) => appointment.length ? true : false)
+            
+                const aCalendar = this.byId("sessionsCalendar")
+                const aRows = aCalendar.getBinding("rows")
+
+                aRows.filter([filter], "Application")
             },
         });
     });

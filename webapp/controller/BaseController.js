@@ -50,12 +50,8 @@ sap.ui.define([
         },
         onCloseDialog: function(){
             const oDialog = this.getDialogOpen()
-            debugger
-
-            oDialog.then((oDialog) => {
-                debugger
-                oDialog.close()
-            })
+                
+            oDialog.close()
         },
         updateModel: function(oData, sModelName){
 
@@ -65,13 +61,16 @@ sap.ui.define([
 
         },
         getDialogOpen: function(){
-            const sDialog = this.DialogTypes.find(
-                    sDialog => {
-                        const sId = this.getView().getDependents().find(el => el.isOpen()).getId()
-                        return sId.includes(sDialog)
-                    }
-                )
-            return this[sDialog]
+            const oDialog = this.DialogTypes.reduce((oObject, sDialog) => {
+                    const oDialog = this.getView().getDependents().find(el => el.isOpen())
+                    const sId = oDialog.getId()
+
+                    if(sId.includes(sDialog))
+                        oObject = oDialog;
+                        return oObject
+                    }, {})
+
+            return oDialog
         }
     })
 });
