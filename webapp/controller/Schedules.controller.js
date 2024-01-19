@@ -267,6 +267,8 @@ sap.ui.define([
                         throw new Error("Por favor, preencha todos os campos!")
                     }
 
+                    oDialog.setBusy(true)
+
                     // Verify if exist an another appointment in same time!    
                     const oAppointments = await models.getAppointments()
 
@@ -288,15 +290,39 @@ sap.ui.define([
                     const oUpdatedData = models.putAppointment(oEditSessionForm, AppointmentDetails.path)
 
                     this.updateModel(oUpdatedData)
+
+                    oDialog.setBusy(false)
                     this.onCloseDialog()
                     
-                    this.MessageBox.success("Componente Editado!")
+                    this.MessageBox.success("Sessão Editada!")
                 } catch (error) {
                     this.MessageBox.warning(error.message)
                 }
             },
             onConfirmDeleteSession: function(){
+               try {
+                const oDialog = this.byId("DeleteSessionDialog");
+                oDialog.setBusy(true)
                 
+                const editFormData = this.getModel("editSessionForm").getData()
+                const {AppointmentDetails, ...oAppointment} = editFormData
+
+                const oUpdatedData = models.deleteAppointment(oAppointment, AppointmentDetails.path)
+
+                // Como estou utilizando o localStorage, vou atualizar a model denovo!
+                this.updateModel(oUpdatedData)
+                
+                oDialog.setBusy(false)
+
+                this.MessageBox.success("Sessão Removida!")
+
+                debugger
+                this.onCloseDialog()
+
+                this.onCloseDialog()
+            } catch (error) {
+                    this.MessageBox.warning(error.message)
+               }
             },
             _verifySessionDates: function(oSessionForm, oOrator){
                 const oAppointment = oOrator.Appointments.find(appointment => appointment.Id === oSessionForm.Id)

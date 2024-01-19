@@ -104,8 +104,28 @@ sap.ui.define([
                 })
                 
             },
-            deleteAppointment: function(){
+            deleteAppointment: function(oAppointment, sPath){
+                const aPathSplited = sPath.split('/')
+                const iOratorId = oAppointment.OratorId
+                const OratorPath = aPathSplited.at(2)
+                const AppointmentIndex = aPathSplited.at(-1); 
 
+                const oAppointments = this.getSchedules();
+
+                return oAppointments.then(oData => {
+                    const aOrators = oData.Orators
+
+                    if(oAppointment.OratorId !== aOrators.at(OratorPath).Id){
+                        console.log("Error")
+                        return
+                    }
+                    
+                    aOrators.at(OratorPath).Appointments.splice(AppointmentIndex, 1)
+
+                    this.postSchedules(oData)
+
+                    return oData
+                })
             }
     };
 });
