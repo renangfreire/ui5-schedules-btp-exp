@@ -32,7 +32,6 @@
                     <HBox >
                     <SearchField  />
                         <Button id="CreateNewSessionDialog" icon="sap-icon://add" press=".openNewSessionDialog" tooltip="Add"/>
-                        <Button id="DeleteAppointments" icon="sap-icon://delete" press=".handleDeleteSession" tooltip="Add"/>
                     </HBox>
                 </toolbarContent>
                 <rows>
